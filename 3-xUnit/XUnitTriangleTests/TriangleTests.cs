@@ -1,10 +1,10 @@
-﻿using System;
+﻿using _3_xUnit;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using _3_xUnit;
 using Xunit;
 
-namespace XUnitTestProject
+namespace XUnitTriangleTests
 {
     public class TrinagleTest
     {
@@ -18,8 +18,7 @@ namespace XUnitTestProject
         public void TriangleInequalityZeroTest()
         {
             Assert.False(new Triangle().TriangleInequality(0, 0, 0));
-        } 
-
+        }
         [Fact]
         public void TriangleInequalityExistTest()
         {
@@ -28,7 +27,7 @@ namespace XUnitTestProject
         [Fact]
         public void TriangleInequalityNotExist()
         {
-            Assert.False(new Triangle().TriangleInequality(8, 1, 1));
+            Assert.False(new Triangle().TriangleInequality(1, 1, 10));
         }
         [Fact]
         public void TriangleInequalityIsosceles()

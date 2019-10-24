@@ -10,9 +10,9 @@ namespace _3_xUnit
     {
         public bool TriangleInequality(double a, double b, double c)
         {
-            if (a > 0 & b > 0 & c > 0)
+            if (a > 0 && b > 0 && c > 0)
             {
-                if (a <= (b + c))
+                if (a <= (b + c) && b <= (a + c) && c <= (a + b))
                 {
                     return true;
                 }
