@@ -4,12 +4,12 @@ namespace Aircompany.Planes
 {
     public abstract class Plane
     {
-        private readonly string _model;
-        private readonly int _maxSpeed;
-        private readonly int _maxFlightDistance;
-        private readonly int _maxLoadCapacity;
+        public string _model;
+        public int _maxSpeed;
+        public int _maxFlightDistance;
+        public int _maxLoadCapacity;
 
-        protected Plane(string model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity)
+        public Plane(string model, int maxSpeed, int maxFlightDistance, int maxLoadCapacity)
         {
             _model = model;
             _maxSpeed = maxSpeed;
@@ -22,17 +22,17 @@ namespace Aircompany.Planes
             return _model;
         }
 
-        public int GetMaxSpeed()
+        public int GetMS()
         {
             return _maxSpeed;
         }
 
-        public int GetMaxFlightDistance()
+        public int MAXFlightDistance()
         {
             return _maxFlightDistance;
         }
 
-        public int GetMaxLoadCapacity()
+        public int MAXLoadCapacity()
         {
             return _maxLoadCapacity;
         }
@@ -49,7 +49,8 @@ namespace Aircompany.Planes
 
         public override bool Equals(object obj)
         {
-            return obj is Plane plane &&
+            var plane = obj as Plane;
+            return plane != null &&
                    _model == plane._model &&
                    _maxSpeed == plane._maxSpeed &&
                    _maxFlightDistance == plane._maxFlightDistance &&
@@ -58,10 +59,13 @@ namespace Aircompany.Planes
 
         public override int GetHashCode()
         {
-            const int coefficient = -1521134295;
-            return (((unchecked(-1043886837 * coefficient) + EqualityComparer<string>.Default.GetHashCode(_model)) *
-                     coefficient + _maxSpeed.GetHashCode()) * coefficient + _maxFlightDistance.GetHashCode()) *
-                   coefficient + _maxLoadCapacity.GetHashCode();
-        }
+            var hashCode = -1043886837;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(_model);
+            hashCode = hashCode * -1521134295 + _maxSpeed.GetHashCode();
+            hashCode = hashCode * -1521134295 + _maxFlightDistance.GetHashCode();
+            hashCode = hashCode * -1521134295 + _maxLoadCapacity.GetHashCode();
+            return hashCode;
+        }        
+
     }
 }
