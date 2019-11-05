@@ -8,11 +8,11 @@ namespace _3_xUnit
 {
     public class Triangle
     {
-        public bool TriangleInequality(double a, double b, double c)
+        public bool TriangleInequality(double sideA, double sideB, double sideC)
         {
-            if (a > 0 && b > 0 && c > 0)
+            if (sideA > 0 && sideB > 0 && sideC > 0)
             {
-                if (a <= (b + c) && b <= (a + c) && c <= (a + b))
+                if (sideA <= (sideB + sideC) && sideB <= (sideA + sideC) && sideC <= (sideA + sideB))
                 {
                     return true;
                 }
