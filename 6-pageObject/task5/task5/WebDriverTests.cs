@@ -53,7 +53,7 @@ namespace task5
         }
 
         [Test]
-        public void IsAddToFaivoriteWork()
+        public void IsAddToFavoriteWork()
         {
             #region TestData
             string phoneName = "huawei p10 plus";
@@ -65,15 +65,17 @@ namespace task5
 
             SearchResultPage searchResultPage = new SearchResultPage(webDriver);
             searchResultPage.addToFavorite(0);
+            var favoriteTitle = searchResultPage.getTitle(searchResultPage.favoriteElement);
 
             headerPageFragment.navToFavourites();
 
             FavoritePage favoritePage = new FavoritePage(webDriver);
             favoritePage.createSnippedCardTitlesList();
 
+
             foreach (var title in favoritePage.snippetCardTitles)
             {
-                if (title.Contains(phoneName.ToLower()))
+                if (title.Contains(favoriteTitle))
                 {
                     testResult = true;
                     break;
