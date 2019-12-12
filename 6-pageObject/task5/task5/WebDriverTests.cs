@@ -46,6 +46,7 @@ namespace task5
                 if(title.Contains(phoneName.ToLower()))
                 {
                     testResult = true;
+                    break;
                 }
             }
             Assert.IsTrue(testResult);
@@ -75,6 +76,7 @@ namespace task5
                 if (title.Contains(phoneName.ToLower()))
                 {
                     testResult = true;
+                    break;
                 }
             }
 
