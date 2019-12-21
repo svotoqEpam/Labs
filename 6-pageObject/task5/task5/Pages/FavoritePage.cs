@@ -2,8 +2,8 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
-using OpenQA.Selenium.Support.PageObjects;
 using System.Collections.Generic;
+using OpenQA.Selenium.Support.PageObjects;
 
 namespace task5.Pages
 {
@@ -11,6 +11,7 @@ namespace task5.Pages
     {
         public FavoritePage(IWebDriver webDriver)
         {
+
             PageFactory.InitElements(webDriver, this);
         }
 
