@@ -22,6 +22,15 @@ namespace GitHubAutomation.Pages
         [FindsBy(How = How.ClassName, Using = "radio-button__radio_side_right")]
         private IWebElement changeViewButton;
 
+        [FindsBy(How = How.ClassName, Using = "n-snippet-card2")]
+        private IList<IWebElement> snippetCards;
+
+        const string snippetCardTitleClassName = "n-link_theme_blue";
+
+        const string cardToFavoriteClassName = "wishlist-control";
+        
+        const string cardToComparisonClassName = "n-user-lists_type_compare";
+
         public SearchResultPage(IWebDriver driver)
         {
             PageFactory.InitElements(driver, this);
@@ -42,10 +51,9 @@ namespace GitHubAutomation.Pages
 
         private IWebElement getCard(Phone phone)
         {
-            var snippetCards = driver.FindElements(By.ClassName("n-snippet-card2"));
             foreach (var snippetCard in snippetCards)
             {
-                var cardTitle = snippetCard.FindElement(By.ClassName("n-link_theme_blue"));
+                var cardTitle = snippetCard.FindElement(By.ClassName(snippetCardTitleClassName));
                 if (cardTitle.GetProperty("title").ToLower().Contains(phone.Name.ToLower()))
                 {
                     return snippetCard;
@@ -67,7 +75,7 @@ namespace GitHubAutomation.Pages
             normalizeView();
 
             var card = getCard(phone);
-            var toFavorite = card.FindElement(By.ClassName("wishlist-control"));
+            var toFavorite = card.FindElement(By.ClassName(cardToFavoriteClassName));
             toFavorite.Click();
 
             return this;
@@ -78,7 +86,7 @@ namespace GitHubAutomation.Pages
             normalizeView();
 
             var card = getCard(phone);
-            var toComparison = card.FindElement(By.ClassName("n-user-lists_type_compare"));
+            var toComparison = card.FindElement(By.ClassName(cardToComparisonClassName));
             toComparison.Click();
 
             return this;
@@ -102,7 +110,7 @@ namespace GitHubAutomation.Pages
         {
             normalizeView();
 
-            return driver.FindElement(By.ClassName("n-snippet-card2")) != null;
+            return snippetCards != null;
         }
    
         public ProductPage OpenPhonePage(Phone phone)
@@ -110,7 +118,7 @@ namespace GitHubAutomation.Pages
             normalizeView();
 
             var card = getCard(phone);
-            var url = card.FindElement(By.ClassName("n-link_theme_blue")).GetAttribute("href");
+            var url = card.FindElement(By.ClassName(snippetCardTitleClassName)).GetAttribute("href");
             driver.Navigate().GoToUrl(url);
 
             return new ProductPage(driver);

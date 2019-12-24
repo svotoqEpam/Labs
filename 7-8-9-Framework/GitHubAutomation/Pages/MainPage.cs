@@ -29,6 +29,14 @@ namespace GitHubAutomation.Pages
         [FindsBy(How = How.ClassName, Using = "header2-menu__item_type_region")]
         private IWebElement changeLocationButton;
 
+        [FindsBy(How = How.ClassName, Using = "region-select-form__continue-with-new")]
+        private IWebElement setNewRegionButton;
+
+        [FindsBy(How = How.ClassName, Using = "suggestick-list__item")]
+        private IWebElement selectRegion;
+        
+        const string settedRegionClassName = "header2-menu__text";
+
         public MainPage(IWebDriver driver)
         {
             PageFactory.InitElements(driver, this);
@@ -77,16 +85,18 @@ namespace GitHubAutomation.Pages
                 .FindElement(By.ClassName("input__control"));
             input.SendKeys(location.Region);
             WaitForAjax();
-            driver.FindElement(By.ClassName("suggestick-list__item")).Click();
-            
-            driver.FindElement(By.ClassName("region-select-form__continue-with-new")).Click();
+            selectRegion.Click();  
+
+            setNewRegionButton.Click();
 
             return this;
         }
 
         public bool IsNewRegion(Location location)
         {
-            var settedRegion = changeLocationButton.FindElement(By.ClassName("header2-menu__text")).Text;
+            WaitForAjax();
+
+            var settedRegion = changeLocationButton.FindElement(By.ClassName(settedRegionClassName)).Text;
             return settedRegion.ToLower() == location.Region.ToLower();
         }
     }

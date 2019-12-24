@@ -12,6 +12,11 @@ namespace GitHubAutomation.Pages
     {
         private IWebDriver driver;
 
+        [FindsBy(How = How.ClassName, Using = "n-snippet-card")]
+        private IList<IWebElement> snippetCards;
+        
+        const string snippetCardTitleClassName = "snippet-card__header-link";
+
         public FavoritePage(IWebDriver driver)
         {
             PageFactory.InitElements(driver, this);
@@ -20,10 +25,9 @@ namespace GitHubAutomation.Pages
 
         private IWebElement getTitle(Phone phone)
         {
-            var snippetCards = driver.FindElements(By.ClassName("n-snippet-card"));
             foreach (var snippetCard in snippetCards)
             {
-                var cardTitle = snippetCard.FindElement(By.ClassName("snippet-card__header-link"));
+                var cardTitle = snippetCard.FindElement(By.ClassName(snippetCardTitleClassName));
                 if (cardTitle.GetProperty("title").ToLower().Contains(phone.Name.ToLower()))
                 {
                     return snippetCard;

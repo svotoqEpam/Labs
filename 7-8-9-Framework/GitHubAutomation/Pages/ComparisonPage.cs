@@ -11,29 +11,26 @@ namespace GitHubAutomation.Pages
     class ComparisonPage
     {
         private IWebDriver driver;
+        
+        [FindsBy(How = How.ClassName, Using = "n-compare-cell-draggable")]
+        private IList<IWebElement> snippetCards;
 
+        [FindsBy(How = How.ClassName, Using = "n-compare-row-name")]
+        private IList<IWebElement> comparisonParameters;
+
+        private const string snippetCardTitleClassName = "n-compare-head__name";
+        
         public ComparisonPage(IWebDriver driver)
         {
             PageFactory.InitElements(driver, this);
             this.driver = driver;
         }
 
-        private IList<IWebElement> getSnippetCards()
-        {
-            return driver.FindElements(By.ClassName("n-compare-cell-draggable"));
-        }
-
-        private IList<IWebElement> getComparisonParameters()
-        {
-            return driver.FindElements(By.ClassName("n-compare-row-name"));
-        }
-
         private IWebElement getTitle(Phone phone)
         {
-            var snippetCards = getSnippetCards();
             foreach (var snippetCard in snippetCards)
             {
-                var cardTitle = snippetCard.FindElement(By.ClassName("n-compare-head__name"));
+                var cardTitle = snippetCard.FindElement(By.ClassName(snippetCardTitleClassName));
                 if (cardTitle.Text.ToLower().Contains(phone.Name.ToLower()))
                 {
                     return snippetCard;
@@ -49,7 +46,6 @@ namespace GitHubAutomation.Pages
 
         public bool HasComparisonParameter(Phone phone)
         {
-            var comparisonParameters = getComparisonParameters();
             foreach (var parameter in comparisonParameters)
             {
                 if(parameter.Text.ToLower().Contains(phone.ComparisonParameter.ToLower()))
