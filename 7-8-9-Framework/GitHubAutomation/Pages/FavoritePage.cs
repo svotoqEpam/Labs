@@ -12,7 +12,7 @@ namespace GitHubAutomation.Pages
     {
         private IWebDriver driver;
 
-        [FindsBy(How = How.ClassName, Using = "n-snippet-card")]
+        [FindsBy(How = How.ClassName, Using = "n-snippet-card snippet-card")]
         private IList<IWebElement> snippetCards;
         
         const string snippetCardTitleClassName = "snippet-card__header-link";
